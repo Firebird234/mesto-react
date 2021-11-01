@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 import Main from './Main';
 import Footer from './Footer';
@@ -17,7 +16,7 @@ function App() {
     
     const [isOpened, setIsOpened] = React.useState(true);
 
-    const [selectedCard, setSelectedCard] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState({});
 
     
 

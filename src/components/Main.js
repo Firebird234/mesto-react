@@ -19,14 +19,16 @@ function Main(props) {
             setUserDescriptio(data.about);
             setUserAvatar(data.avatar);
 })
-    })
+        .catch((err) => {console.log(err)})
+    },[])
 
     React.useEffect(() => {
         Api.getCards()
         .then((items) => {
             setCards(items)
         })
-    })
+        .catch((err) => {console.log(err)})
+    },[])
     
     return(
         <main className="content">
