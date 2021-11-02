@@ -18,15 +18,13 @@ function App() {
 
     const [selectedCard, setSelectedCard] = React.useState({});
 
-    
-
 
     function handleEditAvatarClick() {
-        setIsEditProfilePopupOpen(true);
+        setIsEditAvatarPopupOpen(true);
     }
     
     function handleEditProfileClick() {
-        setIsEditAvatarPopupOpen(true);
+        setIsEditProfilePopupOpen(true);
     }
     
     function handleAddPlaceClick() {
@@ -42,7 +40,7 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
         setIsAddPlacePopupOpen(false);
-        setSelectedCard(false);
+        setSelectedCard({});
     }
 
 
