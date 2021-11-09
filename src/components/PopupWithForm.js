@@ -12,7 +12,7 @@ render() {
         <article className={`popup popup_${this.props.name} ${this.props.isOpen && 'popup_opened'}`}>
         <div className="popup__container">
             <h2 className="popup__title">{this.props.title}</h2>
-            <form className={`form form_${this.props.name}`} name={`${this.props.name}`} id={`form_${this.props.name}ID`}>
+            <form onSubmit = {this.props.onSubmit} className={`form form_${this.props.name}`} name={`${this.props.name}`} id={`form_${this.props.name}ID`}>
                 {this.props.children}
                 <button type="submit" className="popup__submit">Сохранить</button>
             </form>

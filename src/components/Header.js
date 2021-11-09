@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../images/logo.svg';
-console.log({logo})
+
 
 function Header(props) {
 return (

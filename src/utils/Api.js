@@ -19,7 +19,6 @@ export class Api {
                 headers: this._headers
         })
         .then(this._checkResponse);
-
     }
 
     sendUserData(data) {
@@ -41,13 +40,24 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify({
               name: data.name,
-              link: data['image-link']
+              link: data.link
             })
           })
           .then(this._checkResponse);
-    
     }
 
+    //ЭТО ТЕСТЕР
+    //     sendUserCard() {
+    //     return fetch(`${this._baseUrl}cards`, {
+    //         method: 'POST',
+    //         headers: this._headers,
+    //         body: JSON.stringify({
+    //           name: 'EMPERROR GUIDES',
+    //           link: 'https://yobte.ru/uploads/posts/2019-11/warhammer-40000-55-foto-39.jpg'
+    //         })
+    //       })
+    //       .then(this._checkResponse);
+    // }
 
     deleteCardRequest(cardId) {
       return fetch(`${this._baseUrl}cards/${cardId}`, {
@@ -84,10 +94,31 @@ export class Api {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: data.link,
+          avatar: data,
         })
       })
       .then(this._checkResponse);
+
+    }
+
+
+
+
+    changeLikeCardStatus(cardId, isLiked) {
+      if (isLiked) {
+      return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: this._headers,
+      })
+      .then((res) => {console.log(res); return res})
+      .then(this._checkResponse);}
+      else {return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+      .then((res) => {console.log(res); return res})
+      .then(this._checkResponse);
+    }
 
     }
 
@@ -106,5 +137,11 @@ export class Api {
       } );
 
       export default sendRequest;
+
+
+      // sendRequest.sendUserCard();
+      // sendRequest.sendUserCard();
+      // sendRequest.sendUserCard();
+      // sendRequest.sendUserCard();
 
     
