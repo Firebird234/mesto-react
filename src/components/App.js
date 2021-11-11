@@ -21,6 +21,8 @@ function App() {
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
         React.useState(false);
+    const [isImageAvatarPopupOpen, setisImageAvatarPopupOpen] =
+        React.useState(false);
 
     const [isOpened, setIsOpened] = React.useState(true);
 
@@ -34,13 +36,39 @@ function App() {
     const [loaderAdd, setLoaderAdd] = React.useState(false);
     const [loaderAva, setLoaderAva] = React.useState(false);
 
+    //ВАЛИДАЦИЯ---------------------------------------------------------
+    const [validity, setValidity] = React.useState({
+        isValid: false,
+        message: {},
+    });
+
+    function handleValidity(input) {
+        console.log(input.validity);
+        if (input.validity.valid === true) {
+            setValidity({
+                isValid: true,
+                message: {},
+            });
+        } else if (input.validity.valueMissing === true) {
+            setValidity({
+                isValid: false,
+                message: { [input.name]: "Будь котиком, заполни пустое поле" },
+            });
+        } else if (input.validity.valid === false) {
+            setValidity({
+                isValid: false,
+                message: { [input.name]: input.validationMessage },
+            });
+        }
+    }
+    //ВАЛИДАЦИЯ---------------------------------------------------------
+
     console.log(cards);
 
     React.useEffect(() => {
         Api.getUserData()
             .then((data) => {
                 setCurrentUser(data);
-                console.log(data);
             })
             .catch((err) => {
                 console.log(err);
@@ -59,6 +87,10 @@ function App() {
         setIsAddPlacePopupOpen(true);
     }
 
+    function handleImageAvatarPopupClick() {
+        setisImageAvatarPopupOpen(true);
+    }
+
     function handleCardClick(cardData) {
         setSelectedCard(cardData);
     }
@@ -67,6 +99,7 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
         setIsAddPlacePopupOpen(false);
+        setisImageAvatarPopupOpen(false);
         setSelectedCard({});
     }
 
@@ -75,6 +108,7 @@ function App() {
             setIsEditProfilePopupOpen(false);
             setIsEditAvatarPopupOpen(false);
             setIsAddPlacePopupOpen(false);
+            setisImageAvatarPopupOpen(false);
             setSelectedCard({});
         }
     }
@@ -157,6 +191,7 @@ function App() {
                     onEditProfile={handleEditProfileClick}
                     onAddPlace={handleAddPlaceClick}
                     onEditAvatar={handleEditAvatarClick}
+                    onImagePopup={handleImageAvatarPopupClick}
                     onImage={handleCardClick}
                     cards={cards}
                     onCardLike={handleCardLike}
@@ -164,6 +199,8 @@ function App() {
                 />
 
                 <EditProfilePopup
+                    validity={validity}
+                    handleValidity={handleValidity}
                     handleEsc={handleEsc}
                     loader={loaderEdit}
                     onUpdateUser={handleUpdateUser}
@@ -172,6 +209,8 @@ function App() {
                 />
 
                 <EditAvatarPopup
+                    validity={validity}
+                    handleValidity={handleValidity}
                     handleEsc={handleEsc}
                     loader={loaderAva}
                     onUpdateUser={handleUpdatAvatar}
@@ -180,6 +219,8 @@ function App() {
                 />
 
                 <AddPlacePopup
+                    validity={validity}
+                    handleValidity={handleValidity}
                     handleEsc={handleEsc}
                     loader={loaderAdd}
                     onAddCard={handleAddPlaceSubmit}
@@ -193,7 +234,12 @@ function App() {
                     children={<></>}
                 />
 
-                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+                <ImagePopup
+                    isOpen={isImageAvatarPopupOpen}
+                    name="press-image"
+                    card={selectedCard}
+                    onClose={closeAllPopups}
+                />
 
                 <Footer />
             </div>

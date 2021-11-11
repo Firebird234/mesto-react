@@ -4,6 +4,10 @@ import PopupWithForm from "./PopupWithForm";
 function EditAvatarPopup(props) {
     const inputData = React.useRef({});
 
+    const handleChange = (event) => {
+        props.handleValidity(event.target);
+    };
+
     function handleSubmit(e) {
         e.preventDefault();
         props.onUpdateUser({
@@ -23,6 +27,7 @@ function EditAvatarPopup(props) {
 
     return (
         <PopupWithForm
+            validButton={props.validity.isValid}
             loader={props.loader}
             onSubmit={handleSubmit}
             title="Обновить&nbsp;аватар"
@@ -32,6 +37,7 @@ function EditAvatarPopup(props) {
             children={
                 <>
                     <input
+                        onChange={handleChange}
                         ref={inputData}
                         type="url"
                         className="popup__field popup__field_type_link"
@@ -40,7 +46,9 @@ function EditAvatarPopup(props) {
                         id="ava-link"
                         required
                     />
-                    <span className="error" id="ava-link-error"></span>
+                    <span className="error" id="ava-link-error">
+                        {props.validity.message.link}
+                    </span>
                 </>
             }
         />

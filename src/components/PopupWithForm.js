@@ -16,7 +16,7 @@ class PopupWithForm extends React.Component {
     render() {
         return (
             <article
-                onClick={this.handleOverlay}
+                onMouseUp={this.handleOverlay}
                 className={`popup popup_${this.props.name} ${
                     this.props.isOpen && "popup_opened"
                 }`}
@@ -30,7 +30,13 @@ class PopupWithForm extends React.Component {
                         id={`form_${this.props.name}ID`}
                     >
                         {this.props.children}
-                        <button type="submit" className="popup__submit">
+                        <button
+                            type="submit"
+                            className={`popup__submit ${
+                                !this.props.validButton && "submit-invalid"
+                            }`}
+                            disabled={!this.props.validButton}
+                        >
                             Сохранить
                         </button>
                     </form>

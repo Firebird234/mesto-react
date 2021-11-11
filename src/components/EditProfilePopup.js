@@ -28,7 +28,7 @@ function EditProfilePopup(props) {
 
     const handleChange = (event) => {
         setName({ ...inputName, [event.target.name]: event.target.value });
-        console.log(inputName);
+        props.handleValidity(event.target);
     };
 
     function handleSubmit(e) {
@@ -42,6 +42,7 @@ function EditProfilePopup(props) {
 
     return (
         <PopupWithForm
+            validButton={props.validity.isValid}
             loader={props.loader}
             onSubmit={handleSubmit}
             title="Редактировать&nbsp;профиль"
@@ -62,7 +63,9 @@ function EditProfilePopup(props) {
                         minLength="2"
                         maxLength="40"
                     />
-                    <span className="error" id="name-error"></span>
+                    <span className="error" id="name-error">
+                        {props.validity.message.name}
+                    </span>
                     <input
                         type="text"
                         value={inputName.description}
@@ -75,7 +78,9 @@ function EditProfilePopup(props) {
                         minLength="2"
                         maxLength="200"
                     />
-                    <span className="error" id="profession-error"></span>
+                    <span className="error" id="profession-error">
+                        {props.validity.message.description}
+                    </span>
                 </>
             }
         />
