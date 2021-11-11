@@ -13,7 +13,6 @@ function AddPlacePopup(props) {
     function handleSubmit(e) {
         e.preventDefault(e);
         props.onAddCard(inputName);
-        props.onClose();
         setName({ name: "", link: "" });
     }
 

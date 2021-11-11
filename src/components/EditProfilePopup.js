@@ -37,7 +37,6 @@ function EditProfilePopup(props) {
             name: inputName.name,
             about: inputName.description,
         });
-        props.onClose();
     }
 
     return (
@@ -53,7 +52,7 @@ function EditProfilePopup(props) {
                 <>
                     <input
                         type="text"
-                        value={inputName.name}
+                        value={inputName.name || ""}
                         onChange={handleChange}
                         className="popup__field popup__field_type_name"
                         placeholder="Жак-Ив-Кусто"
@@ -68,7 +67,7 @@ function EditProfilePopup(props) {
                     </span>
                     <input
                         type="text"
-                        value={inputName.description}
+                        value={inputName.description || ""}
                         onChange={handleChange}
                         className="popup__field popup__field_type_job"
                         name="description"

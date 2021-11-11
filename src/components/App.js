@@ -24,8 +24,6 @@ function App() {
     const [isImageAvatarPopupOpen, setisImageAvatarPopupOpen] =
         React.useState(false);
 
-    const [isOpened, setIsOpened] = React.useState(true);
-
     const [selectedCard, setSelectedCard] = React.useState({});
 
     const [currentUser, setCurrentUser] = React.useState({});
@@ -62,8 +60,6 @@ function App() {
         }
     }
     //ВАЛИДАЦИЯ---------------------------------------------------------
-
-    console.log(cards);
 
     React.useEffect(() => {
         Api.getUserData()
@@ -121,6 +117,7 @@ function App() {
             })
             .then(() => {
                 setLoaderEdit(false);
+                closeAllPopups();
             });
     }
 
@@ -132,6 +129,7 @@ function App() {
             })
             .then(() => {
                 setLoaderAva(false);
+                closeAllPopups();
             });
     }
 
@@ -143,6 +141,7 @@ function App() {
             })
             .then(() => {
                 setLoaderAdd(false);
+                closeAllPopups();
             });
     }
 

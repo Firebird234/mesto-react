@@ -41,7 +41,7 @@ class PopupWithForm extends React.Component {
                         </button>
                     </form>
                     <button
-                        className={`popup__close popup${this.props.name}`}
+                        className={`popup__close popup_${this.props.name}`}
                         type="button"
                         onClick={this.props.onCloseAll}
                     ></button>
