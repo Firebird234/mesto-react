@@ -5,9 +5,18 @@ class PopupWithForm extends React.Component {
         super(props);
     }
 
+    handleOverlay = (e) => {
+        const popups = Array.from(document.querySelectorAll(".popup"));
+        e.stopPropagation();
+        popups.forEach((el) => {
+            e.target === el && this.props.onCloseAll();
+        });
+    };
+
     render() {
         return (
             <article
+                onClick={this.handleOverlay}
                 className={`popup popup_${this.props.name} ${
                     this.props.isOpen && "popup_opened"
                 }`}

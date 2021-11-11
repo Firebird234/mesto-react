@@ -13,6 +13,14 @@ function EditAvatarPopup(props) {
         inputData.current.value = "";
     }
 
+    React.useEffect(() => {
+        document.addEventListener("keydown", props.handleEsc);
+
+        return () => {
+            document.removeEventListener("keydown", props.handleEsc);
+        };
+    }, []);
+
     return (
         <PopupWithForm
             loader={props.loader}

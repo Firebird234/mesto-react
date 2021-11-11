@@ -149,7 +149,7 @@ function App() {
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
-            <div className="App" onKeyDown={handleEsc}>
+            <div className="App">
                 <Header />
 
                 <Main
@@ -164,6 +164,7 @@ function App() {
                 />
 
                 <EditProfilePopup
+                    handleEsc={handleEsc}
                     loader={loaderEdit}
                     onUpdateUser={handleUpdateUser}
                     isOpen={isEditProfilePopupOpen}
@@ -171,6 +172,7 @@ function App() {
                 />
 
                 <EditAvatarPopup
+                    handleEsc={handleEsc}
                     loader={loaderAva}
                     onUpdateUser={handleUpdatAvatar}
                     isOpen={isEditAvatarPopupOpen}
@@ -178,6 +180,7 @@ function App() {
                 />
 
                 <AddPlacePopup
+                    handleEsc={handleEsc}
                     loader={loaderAdd}
                     onAddCard={handleAddPlaceSubmit}
                     isOpen={isAddPlacePopupOpen}

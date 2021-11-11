@@ -18,6 +18,14 @@ function EditProfilePopup(props) {
         });
     }, [currentUser]);
 
+    React.useEffect(() => {
+        document.addEventListener("keydown", props.handleEsc);
+
+        return () => {
+            document.removeEventListener("keydown", props.handleEsc);
+        };
+    }, []);
+
     const handleChange = (event) => {
         setName({ ...inputName, [event.target.name]: event.target.value });
         console.log(inputName);
