@@ -41,12 +41,12 @@ function EditAvatarPopup(props) {
                         type="url"
                         className="popup__field popup__field_type_link"
                         placeholder="Ссылка на аватар"
-                        name="link"
+                        name="avaLink"
                         id="ava-link"
                         required
                     />
                     <span className="error" id="ava-link-error">
-                        {props.validity.message.link}
+                        {props.validity.message.avaLink}
                     </span>
                 </>
             }

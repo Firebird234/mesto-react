@@ -36,7 +36,13 @@ function App() {
 
     //ВАЛИДАЦИЯ---------------------------------------------------------
     const [validity, setValidity] = React.useState({
-        isValid: false,
+        isValid: {
+            editName: true,
+            editDescription: true,
+            addName: false,
+            addLink: false,
+            avaLink: false,
+        },
         message: {},
     });
 
@@ -44,18 +50,27 @@ function App() {
         console.log(input.validity);
         if (input.validity.valid === true) {
             setValidity({
-                isValid: true,
-                message: {},
+                // ...validity,
+                isValid: { ...validity.isValid, [input.name]: true },
+                message: { ...validity.message, [input.name]: "" },
             });
         } else if (input.validity.valueMissing === true) {
             setValidity({
-                isValid: false,
-                message: { [input.name]: "Будь котиком, заполни пустое поле" },
+                // ...validity,
+                isValid: { ...validity.isValid, [input.name]: false },
+                message: {
+                    ...validity.message,
+                    [input.name]: "Будь котиком, заполни пустое поле",
+                },
             });
         } else if (input.validity.valid === false) {
             setValidity({
-                isValid: false,
-                message: { [input.name]: input.validationMessage },
+                // ...validity,
+                isValid: { ...validity.isValid, [input.name]: false },
+                message: {
+                    ...validity.message,
+                    [input.name]: input.validationMessage,
+                },
             });
         }
     }
@@ -101,11 +116,7 @@ function App() {
 
     function handleEsc(event) {
         if (event.key === `Escape`) {
-            setIsEditProfilePopupOpen(false);
-            setIsEditAvatarPopupOpen(false);
-            setIsAddPlacePopupOpen(false);
-            setisImageAvatarPopupOpen(false);
-            setSelectedCard({});
+            closeAllPopups();
         }
     }
 
@@ -114,6 +125,9 @@ function App() {
         Api.sendUserData(data)
             .then((data) => {
                 setCurrentUser(data);
+            })
+            .catch((err) => {
+                console.log(err);
             })
             .then(() => {
                 setLoaderEdit(false);
@@ -127,6 +141,9 @@ function App() {
             .then((data) => {
                 setCurrentUser(data);
             })
+            .catch((err) => {
+                console.log(err);
+            })
             .then(() => {
                 setLoaderAva(false);
                 closeAllPopups();
@@ -138,6 +155,9 @@ function App() {
         Api.sendUserCard(data)
             .then((data) => {
                 setCards([data, ...cards]);
+            })
+            .catch((err) => {
+                console.log(err);
             })
             .then(() => {
                 setLoaderAdd(false);
@@ -165,12 +185,16 @@ function App() {
         });
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        Api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-            console.log(newCard);
-            setCards((cards) =>
-                cards.map((c) => (c._id === card._id ? newCard : c))
-            );
-        });
+        Api.changeLikeCardStatus(card._id, !isLiked)
+            .then((newCard) => {
+                console.log(newCard);
+                setCards((cards) =>
+                    cards.map((c) => (c._id === card._id ? newCard : c))
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleDeleteClick(card) {

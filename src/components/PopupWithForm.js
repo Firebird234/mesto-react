@@ -32,10 +32,8 @@ class PopupWithForm extends React.Component {
                         {this.props.children}
                         <button
                             type="submit"
-                            className={`popup__submit ${
-                                !this.props.validButton && "submit-invalid"
-                            }`}
-                            disabled={!this.props.validButton}
+                            className={`popup__submit 
+                            ${!this.props.validButton && "ssubmit-invalid"}`}
                         >
                             Сохранить
                         </button>

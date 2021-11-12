@@ -2,7 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-    const [inputName, setName] = React.useState({ name: "", link: "" });
+    const [inputName, setName] = React.useState({ addName: "", addLink: "" });
 
     function handleChange(e) {
         setName({ ...inputName, [e.target.name]: e.target.value });
@@ -13,7 +13,7 @@ function AddPlacePopup(props) {
     function handleSubmit(e) {
         e.preventDefault(e);
         props.onAddCard(inputName);
-        setName({ name: "", link: "" });
+        setName({ addName: "", addLink: "" });
     }
 
     React.useEffect(() => {
@@ -40,28 +40,28 @@ function AddPlacePopup(props) {
                         onChange={handleChange}
                         className="popup__field popup__field_type_place"
                         placeholder="Название"
-                        name="name"
+                        name="addName"
                         id="place"
                         minLength="2"
                         maxLength="30"
                         required
-                        value={inputName.name}
+                        value={inputName.addName}
                     />
                     <span className="error" id="place-error">
-                        {props.validity.message.name}
+                        {props.validity.message.addName}
                     </span>
                     <input
                         type="url"
                         onChange={handleChange}
                         className="popup__field popup__field_type_link"
                         placeholder="Ссылка на картинку"
-                        name="link"
+                        name="addLink"
                         id="link"
                         required
-                        value={inputName.link}
+                        value={inputName.addLink}
                     />
                     <span className="error" id="link-error">
-                        {props.validity.message.link}
+                        {props.validity.message.addLink}
                     </span>
                 </>
             }

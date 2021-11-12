@@ -8,13 +8,31 @@ import {
 function EditProfilePopup(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    const [inputName, setName] = React.useState({ name: "", description: "" });
+    const [inputName, setName] = React.useState({
+        editName: "",
+        editDescription: "",
+    });
+
+    // const [validButton, setvalidButton] = React.useState();
+
+    // function handleValidButton() {
+    //     console.log(props.validity.isValid.editName);
+    //     console.log(props.validity.isValid.editDescription);
+    //     if (
+    //         props.validity.isValid.editName &&
+    //         props.validity.isValid.editDescription
+    //     ) {
+    //         setvalidButton(true);
+    //     } else {
+    //         setvalidButton(false);
+    //     }
+    // }
 
     React.useEffect(() => {
         setName({
             ...inputName,
-            name: currentUser.name,
-            description: currentUser.about,
+            editName: currentUser.name,
+            editDescription: currentUser.about,
         });
     }, [currentUser]);
 
@@ -29,13 +47,14 @@ function EditProfilePopup(props) {
     const handleChange = (event) => {
         setName({ ...inputName, [event.target.name]: event.target.value });
         props.handleValidity(event.target);
+        console.log(inputName);
     };
 
     function handleSubmit(e) {
         e.preventDefault();
         props.onUpdateUser({
-            name: inputName.name,
-            about: inputName.description,
+            name: inputName.editName,
+            about: inputName.editDescription,
         });
     }
 
@@ -52,25 +71,25 @@ function EditProfilePopup(props) {
                 <>
                     <input
                         type="text"
-                        value={inputName.name || ""}
+                        value={inputName.editName || ""}
                         onChange={handleChange}
                         className="popup__field popup__field_type_name"
                         placeholder="Жак-Ив-Кусто"
-                        name="name"
+                        name="editName"
                         id="name"
                         required
                         minLength="2"
                         maxLength="40"
                     />
                     <span className="error" id="name-error">
-                        {props.validity.message.name}
+                        {props.validity.message.editName}
                     </span>
                     <input
                         type="text"
-                        value={inputName.description || ""}
+                        value={inputName.editDescription || ""}
                         onChange={handleChange}
                         className="popup__field popup__field_type_job"
-                        name="description"
+                        name="editDescription"
                         placeholder="Исследователь океана"
                         id="profession"
                         required
@@ -78,7 +97,7 @@ function EditProfilePopup(props) {
                         maxLength="200"
                     />
                     <span className="error" id="profession-error">
-                        {props.validity.message.description}
+                        {props.validity.message.editDescription}
                     </span>
                 </>
             }

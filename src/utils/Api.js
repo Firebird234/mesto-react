@@ -34,8 +34,8 @@ export class Api {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                link: data.link,
+                name: data.addName,
+                link: data.addLink,
             }),
         }).then(this._checkResponse);
     }
