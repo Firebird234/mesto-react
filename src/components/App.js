@@ -126,12 +126,12 @@ function App() {
             .then((data) => {
                 setCurrentUser(data);
             })
-            .catch((err) => {
-                console.log(err);
-            })
             .then(() => {
                 setLoaderEdit(false);
                 closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
             });
     }
 
@@ -141,12 +141,12 @@ function App() {
             .then((data) => {
                 setCurrentUser(data);
             })
-            .catch((err) => {
-                console.log(err);
-            })
             .then(() => {
                 setLoaderAva(false);
                 closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
             });
     }
 
@@ -156,12 +156,12 @@ function App() {
             .then((data) => {
                 setCards([data, ...cards]);
             })
-            .catch((err) => {
-                console.log(err);
-            })
             .then(() => {
                 setLoaderAdd(false);
                 closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
             });
     }
 
@@ -198,10 +198,14 @@ function App() {
     }
 
     function handleDeleteClick(card) {
-        Api.deleteCardRequest(card._id).then((newCard) => {
-            console.log(newCard);
-            setCards((cards) => cards.filter((c) => c !== card));
-        });
+        Api.deleteCardRequest(card._id)
+            .then((newCard) => {
+                console.log(newCard);
+                setCards((cards) => cards.filter((c) => c !== card));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
